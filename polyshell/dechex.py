@@ -44,4 +44,4 @@ def iphex(ip: str, endianness: str):
     return hexadecimal_result
 
 def porthex(port: str, endianness: str):
-    pass
+    return "null"

