@@ -44,4 +44,21 @@ def iphex(ip: str, endianness: str):
     return hexadecimal_result
 
 def porthex(port: str, endianness: str):
-    return "null"
+    if port.isdigit():
+        if ((int(port) > 0) and (int(port) < 65535)):
+            if endianness == 'little':
+                intport = int(port)
+                hexport = hex(intport)[2:]
+                hexport_elts = [elt for elt in hexport]
+                little_array = []
+                j = len(hexport_elts)
+                i = j - 2
+                while i >= 0:
+                    little_array.append(''.join(hexport_elts[i:j]))
+                    i -= 2
+                    j -= 2
+                hexadecimal_result = ''.join(little_array)
+            else:
+                hexadecimal_result = hex(int(port))[2:]
+
+            return hexadecimal_result
