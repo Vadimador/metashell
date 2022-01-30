@@ -41,7 +41,12 @@ def main():
 
         # function randomize : 
         # function shellcode
-        print(baseshell)
+  
+        res = '\\x'.join(baseshell[i:i + 2] for i in range(0, len(baseshell), 2)) 
+  
+        print("ShellCode :\n\\x" + res)
+
+
         pass
     else:
         parser.print_help()
