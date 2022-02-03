@@ -15,17 +15,17 @@ def portbloc(port: str):
     minus = ""
     if(len(port) == 3):
         port = "0" + port
-    port = port.replace("0","1")
     port = port[2:4] + port[0:2]
+    newport = port.replace("0","1")
 
-    print("new port receive : " + port)
-    for i in range(0,len(port)):
-        if port[i] == "1":
+    print("new port receive : " + newport)
+    for i in range(0,len(newport)):
+        if port[i] == "0" and newport[i] == "1":
             minus += "2"
         else :
             minus += "1"
 
-    base = base.replace("port",port)
+    base = base.replace("port",newport)
     base = base.replace("minus",minus)
     
     print("my final ip bloc : " + base)
