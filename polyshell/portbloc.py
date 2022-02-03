@@ -16,6 +16,7 @@ def portbloc(port: str):
     if(len(port) == 3):
         port = "0" + port
     port = port.replace("0","1")
+    port = port[2:4] + port[0:2]
 
     print("new port receive : " + port)
     for i in range(0,len(port)):
