@@ -1,5 +1,5 @@
 {
-    "intructions": {
+    "instructions": {
         "push": {
             "r8": "4150",
             "r9": "4151",

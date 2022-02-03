@@ -51,13 +51,23 @@ def porthex(port: str, endianness: str):
                 hexport = hex(intport)[2:]
                 hexport_elts = [elt for elt in hexport]
                 little_array = []
-                j = len(hexport_elts)
-                i = j - 2
+                
+                if len(hexport_elts) % 2 != 0:
+                    hexport_elts.insert(0, '0')
+                    j = len(hexport_elts)
+                    i = j - 2
+                    
+                else:
+                    j = len(hexport_elts)
+                    i = j - 2
+                
                 while i >= 0:
                     little_array.append(''.join(hexport_elts[i:j]))
                     i -= 2
                     j -= 2
+
                 hexadecimal_result = ''.join(little_array)
+
             else:
                 hexadecimal_result = hex(int(port))[2:]
 
