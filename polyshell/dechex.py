@@ -1,5 +1,3 @@
-from configparser import ExtendedInterpolation
-
 def iphex(ip: str, endianness: str):
     
     # VARIABLES

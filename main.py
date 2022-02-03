@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-from email.mime import base
 import sys
 import argparse
 from polyshell import dechex
@@ -31,7 +30,6 @@ def main():
     porthex = dechex.porthex(args.port,args.endianness)
 
     if iphex:
-        temp = str()
 
         temp = ipbloc.ipbloc(iphex)
         baseshell = baseshell.replace("ip",temp)
@@ -47,7 +45,7 @@ def main():
         print("===============================================")
 
 
-        baseshell = baseshell.replace('syscall','OfO5')
+        baseshell = baseshell.replace('syscall','0f05')
         print("Baseshell without syscall :\n" + baseshell)
         print("===============================================")
 
