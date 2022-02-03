@@ -43,8 +43,16 @@ def main():
         # function shellcode
   
         res = '\\x'.join(baseshell[i:i + 2] for i in range(0, len(baseshell), 2)) 
-  
         print("ShellCode :\n\\x" + res)
+        print("===============================================")
+
+
+        baseshell = baseshell.replace('syscall','OfO5')
+        print("Baseshell without syscall :\n" + baseshell)
+        print("===============================================")
+
+        res = '\\x'.join(baseshell[i:i + 2] for i in range(0, len(baseshell), 2)) 
+        print("ShellCode without syscall :\n\\x" + res)
 
 
         pass
