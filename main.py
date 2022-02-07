@@ -36,7 +36,7 @@ def main():
     parser.add_argument('-e', '--endian', dest='endianness', choices=['big', 'little'], help='Endianness of the target, default=little', default='little', required=False)
     parser.add_argument('-x', '--xornb', dest='xornb', help='Number of xor to put, default=10', type=int, default=10, required=False)
     parser.add_argument('-b', '--build', dest='compile', help="Compile the C file", action='store_true', required=False)
-    parser.add_argument('-n', '--hide-shellcode', dest='hide_shellcode', help="Hide the shellcode printing", default=False, action='store_true', required=False)
+    parser.add_argument('-hs', '--hide-shellcode', dest='hide_shellcode', help="Hide the shellcode printing", default=False, action='store_true', required=False)
     
     args = parser.parse_args()
 
