@@ -9,16 +9,22 @@ def ip(ip: str) -> str:
         str: Return the assembly bloc of instructions for the ip address
     """
 
-    ip_bloc = "beip4881ee11111111"
-    ip = "0x" + ip
-    hex_ip = hex(int(ip,16) + int("0x11111111",16))
-    hex_ip = str(hex_ip)[2:]
-    temp_ip = ""
-    for i in range(6,-1,-2):
-        temp_ip += hex_ip[i]
-        temp_ip += hex_ip[i+1]
-    ip_bloc = ip_bloc.replace("ip",temp_ip)
+    ip_bloc = "beip41bdminus4981ed111111114c29ee"
+    print("ip receive : " + ip)
+    ip = ip[6:8] + ip[4:6] + ip [2:4] + ip[0:2]
+    new_ip = ip
+    new_ip = new_ip.replace("0","1")
+    print("new ip be like : ",new_ip)
 
+    minus = ""
+    for i in range(0,len(new_ip),2):
+        if ip[i] == "0" and new_ip[i] == "1":
+            minus += "2"
+        else :
+            minus += "1"
+
+    ip_bloc = ip_bloc.replace("ip",new_ip)
+    ip_bloc = ip_bloc.replace("minus",minus)
     return ip_bloc
 
 def port(port: str) -> str:
