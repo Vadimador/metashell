@@ -62,7 +62,7 @@ ln -s $(readlink -f main.py) ~/.local/bin/polyshell
 
 ```bash
 ┌[t4yki@d3v]
-└[~]> polyshell -i 127.0.0.1 -p 6666 -b
+└[~]> polyshell -i 127.0.0.1 -p 6666 -b -v
 
 
      ▄▄▄·      ▄▄▌   ▄· ▄▌.▄▄ ·  ▄ .▄▄▄▄ .▄▄▌  ▄▄▌
