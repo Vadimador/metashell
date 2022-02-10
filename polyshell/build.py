@@ -54,8 +54,6 @@ def regreplace(preshellcode: str) -> str:
         if reg1 != reg2 and reg1 not in ['r11', 'r13', 'r14']:
             break
 
-    print(f'reg1 : {reg1} - reg2: {reg2}')
-
     preshellcode = preshellcode.replace('4989c7', mov_reg_rax_dict.get(reg1))
     preshellcode = preshellcode.replace('4c89ff', mov_reg_rdi_dict.get(reg1))
     preshellcode = preshellcode.replace('4d31ff', xor_dict.get(reg1))
