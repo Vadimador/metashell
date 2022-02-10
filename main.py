@@ -58,7 +58,7 @@ def main():
             build.compile()
 
         if not args.hide_shellcode and not args.verbosity:
-            print(f'\n\n{shellcode}\n\n')
+            print(f'{shellcode}')
         
         if args.verbosity:
             print(f'{banner}')
