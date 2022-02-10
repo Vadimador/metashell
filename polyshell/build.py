@@ -153,6 +153,15 @@ def shellcode(baseshell: str, ipbloc: str, portbloc: str, xor_nb: int) -> str:
     outfile = 'reverse_shell.c'
     ccode = open(c_template, 'r').read()
     ccode = ccode.replace('0', repr(shellcode).replace("'", '"'))
+
+    # detection null byte
+    for i in range(0,len(baseshell), 2):
+        if baseshell[i]=="0" and baseshell[i+1]=="0":
+            print("==============================================================")
+            print("||              [!] WARNING : NULLBYTE DETECTED             ||")
+            print("==============================================================\n")
+            break
+
     with open(outfile, 'w') as out:
         out.write(ccode.replace(r'\\', '\\'))
     with open('shellcode.txt', 'w') as outshellcode:
