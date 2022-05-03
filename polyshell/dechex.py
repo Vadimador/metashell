@@ -25,10 +25,10 @@ def iphex(ip: str, endianness: str) -> str:
         last_octet = int(ip_splitted[-1])
         ip_splitted.pop()
 
-
         i = 3
     
         # Calculate the decimal value of the ip address given
+        print(f"[debug] {ip_splitted}")
         for octet in ip_splitted: 
             oct_part = int(octet) * 256**i  
             dec_array.append(oct_part)
@@ -36,12 +36,12 @@ def iphex(ip: str, endianness: str) -> str:
 
         dec_array.append(last_octet)
         for elt in dec_array:   
-            decimal_result += elt   
-
+            decimal_result += elt
         # Convert the decimal value of the ip address to hexadecimal and remove the 0x
         hexadecimal_result = hex(decimal_result)
+        if len(hexadecimal_result) <= 10:
+            hexadecimal_result = hexadecimal_result.replace("0x", "0x0")
         hexadecimal_result = str(hexadecimal_result)[2:]
-        
         #Revert the element of the ip address if the endianness is little
         if endianness == 'little':
             big_array = [char for char in hexadecimal_result]
@@ -53,6 +53,7 @@ def iphex(ip: str, endianness: str) -> str:
                 i -= 2
                 j -= 2
             hexadecimal_result = ''.join(little_array)
+        
         return hexadecimal_result
     
     except:
