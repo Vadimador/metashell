@@ -1,23 +1,22 @@
 
-# Polyshell
+# Metashell
 
-Simple polymorphic reverse shell generator.\
+Simple metamorphic reverse shell generator.\
 \
 This tool will randomly choose registry between `r8` to `r15` to handle the different file descriptors for the reverse shell.\
  It will also put some dead code within the shellcode so that none of the generated shell's signatures can't be identical.
 
 ```
+     • ▌ ▄ ·. ▄▄▄ .▄▄▄▄▄ ▄▄▄· .▄▄ ·  ▄ .▄▄▄▄ .▄▄▌  ▄▄▌  
+     ·██ ▐███▪▀▄.▀·•██  ▐█ ▀█ ▐█ ▀. ██▪▐█▀▄.▀·██•  ██•  
+     ▐█ ▌▐▌▐█·▐▀▀▪▄ ▐█.▪▄█▀▀█ ▄▀▀▀█▄██▀▐█▐▀▀▪▄██▪  ██▪  
+     ██ ██▌▐█▌▐█▄▄▌ ▐█▌·▐█ ▪▐▌▐█▄▪▐███▌▐▀▐█▄▄▌▐█▌▐▌▐█▌▐▌
+     ▀▀  █▪▀▀▀ ▀▀▀  ▀▀▀  ▀  ▀  ▀▀▀▀ ▀▀▀ · ▀▀▀ .▀▀▀ .▀▀▀ 
 
-     ▄▄▄·      ▄▄▌   ▄· ▄▌.▄▄ ·  ▄ .▄▄▄▄ .▄▄▌  ▄▄▌  
-    ▐█ ▄█▪     ██•  ▐█▪██▌▐█ ▀. ██▪▐█▀▄.▀·██•  ██•  
-     ██▀· ▄█▀▄ ██▪  ▐█▌▐█▪▄▀▀▀█▄██▀▐█▐▀▀▪▄██▪  ██▪  
-    ▐█▪·•▐█▌.▐▌▐█▌▐▌ ▐█▀·.▐█▄▪▐███▌▐▀▐█▄▄▌▐█▌▐▌▐█▌▐▌
-    .▀    ▀█▄▀▪.▀▀▀   ▀ •  ▀▀▀▀ ▀▀▀ · ▀▀▀ .▀▀▀ .▀▀▀ 
-
-       Simple polymorphic reverse shell generator.
+       Simple metamorphic reverse shell generator.
 
                 Vadimador - Ninuuu - t4yki
-         https://github.com/Vadimador/polyshell
+         https://github.com/Vadimador/metashell
 
     
 usage: main.py [-h] -i IP -p PORT [-e {big,little}] [-x XORNB] [-b] [-hs] [-v] [-o OUTFILE]
@@ -45,15 +44,15 @@ optional arguments:
 ## Installation
 
 ```bash
-git clone https://github.com/Vadimador/polyshell
-cd polyshell
+git clone https://github.com/Vadimador/metashell
+cd metashell
 ./main.py
 ```
 
-You can add the polyshell main.py to path one of your PATH to execute it from anywhere.
+You can add the metashell main.py to path one of your PATH to execute it from anywhere.
 ```
-cd polyshell
-ln -s $(readlink -f main.py) ~/.local/bin/polyshell
+cd metashell
+ln -s $(readlink -f main.py) ~/.local/bin/metashell
 ```
     
 ## Run
@@ -62,19 +61,18 @@ ln -s $(readlink -f main.py) ~/.local/bin/polyshell
 
 ```bash
 ┌[t4yki@d3v]
-└[~]> polyshell -i 127.0.0.1 -p 6666 -b -v
+└[~]> metashell -i 127.0.0.1 -p 6666 -b -v
 
+     • ▌ ▄ ·. ▄▄▄ .▄▄▄▄▄ ▄▄▄· .▄▄ ·  ▄ .▄▄▄▄ .▄▄▌  ▄▄▌  
+     ·██ ▐███▪▀▄.▀·•██  ▐█ ▀█ ▐█ ▀. ██▪▐█▀▄.▀·██•  ██•  
+     ▐█ ▌▐▌▐█·▐▀▀▪▄ ▐█.▪▄█▀▀█ ▄▀▀▀█▄██▀▐█▐▀▀▪▄██▪  ██▪  
+     ██ ██▌▐█▌▐█▄▄▌ ▐█▌·▐█ ▪▐▌▐█▄▪▐███▌▐▀▐█▄▄▌▐█▌▐▌▐█▌▐▌
+     ▀▀  █▪▀▀▀ ▀▀▀  ▀▀▀  ▀  ▀  ▀▀▀▀ ▀▀▀ · ▀▀▀ .▀▀▀ .▀▀▀ 
 
-     ▄▄▄·      ▄▄▌   ▄· ▄▌.▄▄ ·  ▄ .▄▄▄▄ .▄▄▌  ▄▄▌
-    ▐█ ▄█▪     ██•  ▐█▪██▌▐█ ▀. ██▪▐█▀▄.▀·██•  ██•
-     ██▀· ▄█▀▄ ██▪  ▐█▌▐█▪▄▀▀▀█▄██▀▐█▐▀▀▪▄██▪  ██▪
-    ▐█▪·•▐█▌.▐▌▐█▌▐▌ ▐█▀·.▐█▄▪▐███▌▐▀▐█▄▄▌▐█▌▐▌▐█▌▐▌
-    .▀    ▀█▄▀▪.▀▀▀   ▀ •  ▀▀▀▀ ▀▀▀ · ▀▀▀ .▀▀▀ .▀▀▀
-
-       Simple polymorphic reverse shell generator.
+       Simple metamorphic reverse shell generator.
 
                 Vadimador - Ninuuu - t4yki
-         https://github.com/Vadimador/polyshell
+         https://github.com/Vadimador/metashell
 
 
  [!] Shellcode generated :
@@ -89,20 +87,18 @@ ln -s $(readlink -f main.py) ~/.local/bin/polyshell
  ### Create a reverse shell and modify the number of xor and hide shellcode printing
 ```bash
 ┌[Vadimador@d3v] 
-└[~]> polyshell -i 127.0.0.1 -p 1024 -x 54 -b -v
+└[~]> metashell -i 127.0.0.1 -p 1024 -x 54 -b -v
 
+     • ▌ ▄ ·. ▄▄▄ .▄▄▄▄▄ ▄▄▄· .▄▄ ·  ▄ .▄▄▄▄ .▄▄▌  ▄▄▌  
+     ·██ ▐███▪▀▄.▀·•██  ▐█ ▀█ ▐█ ▀. ██▪▐█▀▄.▀·██•  ██•  
+     ▐█ ▌▐▌▐█·▐▀▀▪▄ ▐█.▪▄█▀▀█ ▄▀▀▀█▄██▀▐█▐▀▀▪▄██▪  ██▪  
+     ██ ██▌▐█▌▐█▄▄▌ ▐█▌·▐█ ▪▐▌▐█▄▪▐███▌▐▀▐█▄▄▌▐█▌▐▌▐█▌▐▌
+     ▀▀  █▪▀▀▀ ▀▀▀  ▀▀▀  ▀  ▀  ▀▀▀▀ ▀▀▀ · ▀▀▀ .▀▀▀ .▀▀▀ 
 
-
-     ▄▄▄·      ▄▄▌   ▄· ▄▌.▄▄ ·  ▄ .▄▄▄▄ .▄▄▌  ▄▄▌
-    ▐█ ▄█▪     ██•  ▐█▪██▌▐█ ▀. ██▪▐█▀▄.▀·██•  ██•
-     ██▀· ▄█▀▄ ██▪  ▐█▌▐█▪▄▀▀▀█▄██▀▐█▐▀▀▪▄██▪  ██▪
-    ▐█▪·•▐█▌.▐▌▐█▌▐▌ ▐█▀·.▐█▄▪▐███▌▐▀▐█▄▄▌▐█▌▐▌▐█▌▐▌
-    .▀    ▀█▄▀▪.▀▀▀   ▀ •  ▀▀▀▀ ▀▀▀ · ▀▀▀ .▀▀▀ .▀▀▀
-
-       Simple polymorphic reverse shell generator.
+       Simple metamorphic reverse shell generator.
 
                 Vadimador - Ninuuu - t4yki
-         https://github.com/Vadimador/polyshell
+         https://github.com/Vadimador/metashell
 
 
  [!] Shellcode generated :
@@ -118,19 +114,18 @@ ln -s $(readlink -f main.py) ~/.local/bin/polyshell
 
 ```bash
 ┌[Ninuuu@d3v] 
-└[~]> polyshell -i 127.0.0.1 -p 4444 -x 88 -v
+└[~]> metashell -i 127.0.0.1 -p 4444 -x 88 -v
 
+     • ▌ ▄ ·. ▄▄▄ .▄▄▄▄▄ ▄▄▄· .▄▄ ·  ▄ .▄▄▄▄ .▄▄▌  ▄▄▌  
+     ·██ ▐███▪▀▄.▀·•██  ▐█ ▀█ ▐█ ▀. ██▪▐█▀▄.▀·██•  ██•  
+     ▐█ ▌▐▌▐█·▐▀▀▪▄ ▐█.▪▄█▀▀█ ▄▀▀▀█▄██▀▐█▐▀▀▪▄██▪  ██▪  
+     ██ ██▌▐█▌▐█▄▄▌ ▐█▌·▐█ ▪▐▌▐█▄▪▐███▌▐▀▐█▄▄▌▐█▌▐▌▐█▌▐▌
+     ▀▀  █▪▀▀▀ ▀▀▀  ▀▀▀  ▀  ▀  ▀▀▀▀ ▀▀▀ · ▀▀▀ .▀▀▀ .▀▀▀ 
 
-     ▄▄▄·      ▄▄▌   ▄· ▄▌.▄▄ ·  ▄ .▄▄▄▄ .▄▄▌  ▄▄▌
-    ▐█ ▄█▪     ██•  ▐█▪██▌▐█ ▀. ██▪▐█▀▄.▀·██•  ██•
-     ██▀· ▄█▀▄ ██▪  ▐█▌▐█▪▄▀▀▀█▄██▀▐█▐▀▀▪▄██▪  ██▪
-    ▐█▪·•▐█▌.▐▌▐█▌▐▌ ▐█▀·.▐█▄▪▐███▌▐▀▐█▄▄▌▐█▌▐▌▐█▌▐▌
-    .▀    ▀█▄▀▪.▀▀▀   ▀ •  ▀▀▀▀ ▀▀▀ · ▀▀▀ .▀▀▀ .▀▀▀
-
-       Simple polymorphic reverse shell generator.
+       Simple metamorphic reverse shell generator.
 
                 Vadimador - Ninuuu - t4yki
-         https://github.com/Vadimador/polyshell
+         https://github.com/Vadimador/metashell
 
 
  [!] Shellcode generated :

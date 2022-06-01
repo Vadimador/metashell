@@ -2,9 +2,9 @@
 
 from sys import argv,stderr
 from argparse import ArgumentParser
-from polyshell import dechex
-from polyshell import bloc
-from polyshell import build
+from metashell import dechex
+from metashell import bloc
+from metashell import build
 
 class argwrap(ArgumentParser):
     def error(self, message):
@@ -13,17 +13,18 @@ class argwrap(ArgumentParser):
 
 
 def main():
+    # font : Elite on https://patorjk.com/software/taag
     banner = '''
-     ▄▄▄·      ▄▄▌   ▄· ▄▌.▄▄ ·  ▄ .▄▄▄▄ .▄▄▌  ▄▄▌  
-    ▐█ ▄█▪     ██•  ▐█▪██▌▐█ ▀. ██▪▐█▀▄.▀·██•  ██•  
-     ██▀· ▄█▀▄ ██▪  ▐█▌▐█▪▄▀▀▀█▄██▀▐█▐▀▀▪▄██▪  ██▪  
-    ▐█▪·•▐█▌.▐▌▐█▌▐▌ ▐█▀·.▐█▄▪▐███▌▐▀▐█▄▄▌▐█▌▐▌▐█▌▐▌
-    .▀    ▀█▄▀▪.▀▀▀   ▀ •  ▀▀▀▀ ▀▀▀ · ▀▀▀ .▀▀▀ .▀▀▀ 
-
-       Simple polymorphic reverse shell generator.
+    • ▌ ▄ ·. ▄▄▄ .▄▄▄▄▄ ▄▄▄· .▄▄ ·  ▄ .▄▄▄▄ .▄▄▌  ▄▄▌  
+    ·██ ▐███▪▀▄.▀·•██  ▐█ ▀█ ▐█ ▀. ██▪▐█▀▄.▀·██•  ██•  
+    ▐█ ▌▐▌▐█·▐▀▀▪▄ ▐█.▪▄█▀▀█ ▄▀▀▀█▄██▀▐█▐▀▀▪▄██▪  ██▪  
+    ██ ██▌▐█▌▐█▄▄▌ ▐█▌·▐█ ▪▐▌▐█▄▪▐███▌▐▀▐█▄▄▌▐█▌▐▌▐█▌▐▌
+    ▀▀  █▪▀▀▀ ▀▀▀  ▀▀▀  ▀  ▀  ▀▀▀▀ ▀▀▀ · ▀▀▀ .▀▀▀ .▀▀▀ 
+       
+       Simple metamorphic reverse shell generator.
 
                 Vadimador - Ninuuu - t4yki
-         https://github.com/Vadimador/polyshell
+         https://github.com/Vadimador/metashell
 
     '''
 
