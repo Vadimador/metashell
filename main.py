@@ -65,6 +65,7 @@ def main():
 
         if args.iscrypt: # on génère la clé si le mode crypt est utilisé
             key = bloc.key()
+            #print("Key be like : " + key)
 
         shellcode = build.shellcode(baseshell, ipbloc, portbloc, xornb, outfile, args.iscrypt, key)
         if args.compile:
@@ -75,6 +76,8 @@ def main():
         
         if args.verbosity:
             print(f'{banner}')
+            if args.iscrypt:
+                print(f' [!] Key generated : {key}\n')
             if not args.hide_shellcode:
                 print(f' [!] Shellcode generated : \n\n{shellcode}\n\n')
             else:

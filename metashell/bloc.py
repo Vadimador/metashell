@@ -1,3 +1,7 @@
+from random import random
+from random import randint
+
+
 def ip(ip: str) -> str:
     """
     Create an assembly bloc of instructions for the ip address
@@ -58,6 +62,12 @@ def port(port: str) -> str:
 
 def key() -> str:
     key = ""
-
+    for i in range(0,8):
+        rand = randint(1,255)
+        shex = str(hex(int(randint(1,255))))
+        shex = shex[2:]
+        if len(shex) == 1:
+            shex = '0' + shex
+        key += shex
 
     return key
