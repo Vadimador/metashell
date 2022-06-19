@@ -55,3 +55,9 @@ def port(port: str) -> str:
     port_bloc = port_bloc.replace("minus",minus)
 
     return port_bloc
+
+def key() -> str:
+    key = ""
+
+
+    return key
